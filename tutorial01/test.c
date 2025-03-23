@@ -20,6 +20,13 @@ static int test_pass = 0;
 
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 
+static void test_parse_true() {
+    lept_value v;
+    v.type = LEPT_FALSE;
+    EXPECT_EQ_INT(LEPT_TRUE,lept_parse(&v,"true"));
+    EXPECT_EQ_INT(LEPT_NULL, lept_get_type(&v));
+}
+
 static void test_parse_null() {
     lept_value v;
     v.type = LEPT_FALSE;
