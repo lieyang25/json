@@ -43,7 +43,7 @@ static int lept_parse_null(lept_context* c, lept_value* v) {
 }
 
 static int lept_parse_value(lept_context* c, lept_value* v) {
-    switch (*c->json) {
+    switch (*c->json) { //解析treu，fslae，null，空，其他
         case 't':  return lept_parse_true(c, v);
         case 'f':  return lept_parse_false(c, v);
         case 'n':  return lept_parse_null(c, v);
@@ -53,14 +53,16 @@ static int lept_parse_value(lept_context* c, lept_value* v) {
 }
 
 int lept_parse(lept_value* v, const char* json) {
+    //json分为空 值 空
+    //所以要检查三次
     lept_context c;
     int ret;
     assert(v != NULL);
     c.json = json;
     v->type = LEPT_NULL;
-    lept_parse_whitespace(&c);
-    if((ret = lept_parse_value(&c,v)) == LEPT_PARSE_OK) {
-        lept_parse_whitespace(&c);
+    lept_parse_whitespace(&c);  //one
+    if((ret = lept_parse_value(&c,v)) == LEPT_PARSE_OK) {   //two
+        lept_parse_whitespace(&c);  //three
         if(*c.json != '\0') {
             ret = LEPT_PARSE_ROOT_NOT_SINGULAR;
         }

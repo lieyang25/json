@@ -1,12 +1,14 @@
 #ifndef LEPTJSON_H__
 #define LEPTJSON_H__
 
+//json类型
 typedef enum { LEPT_NULL, LEPT_FALSE, LEPT_TRUE, LEPT_NUMBER, LEPT_STRING, LEPT_ARRAY, LEPT_OBJECT } lept_type;
 
 typedef struct {
     lept_type type;
 }lept_value;
 
+//判断结果
 enum {
     LEPT_PARSE_OK = 0,
     LEPT_PARSE_EXPECT_VALUE,
